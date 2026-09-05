@@ -92,7 +92,18 @@ export default function Profile() {
           />
         </div>
 
-        <div className="pt-4 border-t border-surface-container flex justify-end">
+        <div className="pt-4 border-t border-surface-container flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => {
+              logout();
+              window.location.href = '/';
+            }}
+            className="py-3 px-6 bg-surface-container-high hover:bg-error/10 text-error font-display font-bold text-xs rounded-full border border-surface-container transition-colors flex items-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-base">logout</span>
+            <span>Sign Out of Account</span>
+          </button>
           <button
             type="submit"
             className="py-3.5 px-8 bg-primary hover:bg-primary-container text-white font-display font-bold text-sm rounded-full shadow-md transition-colors"

@@ -32,7 +32,7 @@ export default function CustomerDashboard() {
           <p className="text-xs text-outline">Here is your daily macro breakdown & meal dispatch status.</p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Link
             to="/build-meals"
             className="py-3 px-5 bg-primary hover:bg-primary-container text-white font-display font-bold text-xs rounded-full shadow-md transition-colors flex items-center gap-1.5"
@@ -46,6 +46,16 @@ export default function CustomerDashboard() {
           >
             Profile
           </Link>
+          <button
+            onClick={() => {
+              logout();
+              window.location.href = '/';
+            }}
+            className="py-3 px-4 bg-surface-container-high hover:bg-error/10 hover:text-error text-on-surface font-display font-bold text-xs rounded-full border border-surface-container transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-base">logout</span>
+            <span>Logout</span>
+          </button>
         </div>
       </div>
 

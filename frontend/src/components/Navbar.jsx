@@ -74,13 +74,24 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* User Profile / Dashboard Link */}
+            {/* User Profile / Dashboard & Logout Buttons */}
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
                 <Link to="/dashboard" className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-primary text-white text-xs font-bold shadow-md hover:bg-primary-container transition-colors">
                   <span className="material-symbols-outlined text-base">dashboard</span>
                   <span className="hidden md:inline">{user?.name || 'Dashboard'}</span>
                 </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    window.location.href = '/';
+                  }}
+                  className="flex items-center gap-1 px-3 py-2 rounded-full bg-surface-container-high hover:bg-error/10 hover:text-error text-on-surface text-xs font-bold border border-surface-container transition-colors"
+                  title="Sign Out"
+                >
+                  <span className="material-symbols-outlined text-base">logout</span>
+                  <span className="hidden sm:inline">Logout</span>
+                </button>
               </div>
             ) : (
               <Link to="/login" className="px-4 py-2 rounded-full bg-primary text-white text-xs font-bold shadow-md hover:bg-primary-container transition-colors">
@@ -125,6 +136,28 @@ export default function Navbar() {
               <span>Daily Macro Goal</span>
               <span>{consumed.protein}g / {targets.protein}g Protein</span>
             </Link>
+
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  logout();
+                  window.location.href = '/';
+                }}
+                className="w-full text-left px-4 py-2.5 rounded-2xl bg-surface-container-high hover:bg-error/10 text-on-surface hover:text-error text-sm font-bold flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-lg">logout</span>
+                <span>Sign Out / Logout</span>
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-center px-4 py-2.5 rounded-2xl bg-primary text-white text-sm font-bold"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       )}
