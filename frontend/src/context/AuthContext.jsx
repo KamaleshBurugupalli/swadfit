@@ -5,25 +5,20 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('swadfit_user');
-    return saved ? JSON.parse(saved) : {
-      id: 'usr-101',
-      name: 'Karan Sharma',
-      email: 'karan@swadfit.in',
-      phone: '+91 98765 43210',
-      goal: 'Fat Loss & Lean Muscle',
-      targets: { calories: 1800, protein: 140, carbs: 160, fat: 50, fibre: 30 },
-      preferences: { diet: 'Both', spice: 'Medium', allergies: [] },
-      address: 'Flat 402, Oakwood Heights, Hitec City, Hyderabad - 500081'
-    };
+    return saved ? JSON.parse(saved) : null;
   });
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem('swadfit_user');
+  });
 
   useEffect(() => {
     if (user) {
       localStorage.setItem('swadfit_user', JSON.stringify(user));
+      setIsAuthenticated(true);
     } else {
       localStorage.removeItem('swadfit_user');
+      setIsAuthenticated(false);
     }
   }, [user]);
 
@@ -58,6 +53,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem('swadfit_user');
+    localStorage.removeItem('swadfit_cart');
     setUser(null);
     setIsAuthenticated(false);
   };
